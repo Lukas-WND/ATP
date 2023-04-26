@@ -6,7 +6,7 @@ void main(){
     char password[10], correctPassword[10] = "password", c;
     int i = 0, result;
 
-    printf("Digite a senha \(max 10 digitos\): ");
+    printf("Digite a senha (max 10 digitos): ");
 
     while(1){
         c = getch();
