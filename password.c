@@ -13,9 +13,11 @@ void main(){
         if(c == 13){
             break;
         }
+        printf("*");
         password[i] = c;
         i++;
     }
+    password[i] = '\0';
 
     result = strcmp(password, correctPassword);
     if(result == 0){
