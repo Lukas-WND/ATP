@@ -136,37 +136,53 @@ int main(){
                         printf("8 - Antartica 600ml ------------------------ R$10.00\n");
                         printf("9 - Heineken 600ml ------------------------- R$12.00\n");
                         scanf("%d", &bebida);
-                        printf("");
+                        printf("Qual quantidade voce deseja?\n");
+                        scanf("%d", &qntItens);
 
                         switch(bebida){
                             case 1:
                                 system("cls");
                                 printf("Agua adicionada!\n\n");
-                                pedidos[count] = 8;
+                                for(int i = 0; i < qntItens; i++){
+                                    pedidos[count+i] = 8;
+                                }
+                                count -= qntItens-1;
                                 subTotal += 3;
                             break;
                             case 2:
                                 system("cls");
                                 printf("Bare lata adicionado!\n\n");
-                                pedidos[count] = 9;
+                                for(int i = 0; i < qntItens; i++){
+                                    pedidos[count+i] = 9;
+                                }
+                                count -= qntItens-1;
                                 subTotal += 5;
                             break;
                             case 3:
                                 system("cls");
                                 printf("Guarana Antartica lata adicionado!\n\n");
-                                pedidos[count] = 10;
+                                for(int i = 0; i < qntItens; i++){
+                                    pedidos[count+i] = 10;
+                                }
+                                count -= qntItens-1;
                                 subTotal += 5;
                             break;
                             case 4:
                                 system("cls");
                                 printf("Coca-cola lata adicionado!\n\n");
-                                pedidos[count] = 11;
+                                for(int i = 0; i < qntItens; i++){
+                                    pedidos[count+i] = 11;
+                                }
+                                count -= qntItens-1;
                                 subTotal += 6;
                             break;
                             case 5:
                                 system("cls");
                                 printf("Fanta Laranja lata adicionado!\n\n");
-                                pedidos[count] = 12;
+                                for(int i = 0; i < qntItens; i++){
+                                    pedidos[count+i] = 12;
+                                }
+                                count -= qntItens-1;
                                 subTotal += 6;
                             break;
                             case 6:
