@@ -1,28 +1,179 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(){
+void exibirItem(int item){
+    switch(item){
+        case 1:
+            printf("Espetinho de Alcatra ------------------- R$12.00\n"); //Será exibida uma lista dos itens solicitados, começando pelo índice 1
+        break;
 
-    int menuComanda = 1, classItem, qntItens, espetinho, bebida, acompanhamento, itemCancelado, opcaoCupom = 0, count = 0, pedidos[100]; //o array pedidos[100] será utilizado para incrementar os itens pedidos pelo cliente
-    float pagamento, troco, subTotal = 0, total = 0;
-    char cupom[15], //este array irá armazenar o cupom de desconto informado pelo cliente
-        cupom1[] = "ALUNOIFAM10", //os seguintes arrays são as strings de cupons de desconto
-        cupom2[] = "ALUNOIFAM20",
-        cupom3[] = "ALUNOIFAM30";
+        case 2:
+            printf("Espetinho de Fraldinha ----------------- R$11.00\n");
+        break;
+
+        case 3:
+            printf("Espetinho de Picanha ------------------- R$15.00\n");
+        break;
+
+        case 4:
+            printf("Espetinho de Patinho ------------------- R$12.00\n");
+        break;
+
+        case 5:
+            printf("Espetinho de Frango -------------------- R$9.00\n");
+        break;
+
+        case 6:
+            printf("Espetinho de Linguica ------------------ R$9.00\n");
+        break;
+
+        case 7:
+            printf("Espetinho Misto ------------------------ R$10.00\n");
+        break;
+
+        case 8:
+            printf("Agua 350ml ----------------------------- R$3.00\n");
+        break;
+
+        case 9:
+            printf("Bare lata ------------------------------ R$5.00\n");
+        break;
+
+        case 10:
+            printf("Guarana Antartica lata ----------------- R$5.00\n");
+        break;
+
+        case 11:
+            printf("Coca-cola lata ------------------------- R$6.00\n");
+        break;
+
+        case 12:
+            printf("Fanta Laranja lata --------------------- R$6.00\n");
+        break;
+
+        case 13:
+            printf("Fanta Uva lata ------------------------- R$6.00\n");
+        break;
+
+        case 14:
+            printf("Brhama Duplo Malte 600ml --------------- R$10.00\n");
+        break;
+
+        case 15:
+            printf("Antartica 600ml ------------------------ R$10.00\n");
+        break;
+
+        case 16:
+            printf("Heineken 600ml ------------------------- R$12.00\n");
+        break;
+
+        case 17:
+            printf("Arroz ---------------------------------- R$5.50\n");
+        break;
+
+        case 18:
+            printf("Farofa --------------------------------- R$2.00\n");
+        break;
+
+        case 19:
+            printf("Vinagrete ------------------------------ R$4.50\n");
+        break;
+
+        case 20:
+            printf("Queijo coalho -------------------------- R$6.00\n");
+        break;
+
+        case 21:
+            printf("Vatapa --------------------------------- R$4.50\n");
+        break;
+
+        default:
+        break;
+    }
+}
+
+void exibirCardapio(int tipo){
+    switch(tipo){
+        case 1:
+            system("cls");
+            printf("------------------MENU DE ESPETINHOS----------------\n");
+            for(int i = 1; i <= 7; i++){
+                printf("%d - ", i);
+                exibirItem(i);
+            }
+        break;
+
+        case 2:
+            system("cls");
+            printf("-------------------MENU DE BEBIDAS-----------------\n");
+            for(int i = 1; i <= 9; i++){
+                printf("%d - ", i);
+                exibirItem(i+7);
+            }
+        break;
+
+        case 3:
+            system("cls");
+            printf("---------------MENU DE ACOMPANHAMENTOS-------------\n");
+            for(int i = 1; i <= 5; i++){
+                printf("%d - ", i);
+                exibirItem(i+16);
+            }
+        break;
+
+        default:
+            printf("Erro no sistema\n");
+        break;
+    }
+}
+
+void main(){
+    int menu = 1, cont = 0, quantidade, classItem, cancItem, espetinho, bebida, acompanhamento, opcaoDesconto, pedidos[100];
+    float subtotal = 0, total = 0, pagamento, desconto, troco, cardapio[3][9];
+    char cupom[15],
+         cupom1[] = "ALUNOIFAM10",
+         cupom2[] = "ALUNOIFAM20",
+         cupom3[] = "ALUNOIFAM30";
+
+    //Espetinhos
+    cardapio[0][0] = 12.0;
+    cardapio[0][1] = 11.0;
+    cardapio[0][2] = 15.0;
+    cardapio[0][3] = 12.0;
+    cardapio[0][4] = 9.0;
+    cardapio[0][5] = 9.0;
+    cardapio[0][6] = 10.0;
+
+    //Bebidas
+    cardapio[1][0] = 3.0;
+    cardapio[1][1] = 5.0;
+    cardapio[1][2] = 5.0;
+    cardapio[1][3] = 6.0;
+    cardapio[1][4] = 6.0;
+    cardapio[1][5] = 6.0;
+    cardapio[1][6] = 10.0;
+    cardapio[1][7] = 10.0;
+    cardapio[1][8] = 12.0;
+
+    //Acompanhamentos
+    cardapio[2][0] = 5.5;
+    cardapio[2][1] = 2.0;
+    cardapio[2][2] = 4.5;
+    cardapio[2][3] = 6.0;
+    cardapio[2][4] = 4.5;
 
     printf("Bem vindo ao restaurante Espetinhos do IFAM!\n");
-    while(menuComanda != 0){ //esta variável armazena as opções da comanda, sendo 0 a opção de encerrar o programa
+
+    while(menu != 0){
         printf("Informe a acao desejada: \n");
         printf("1 - Incluir item\n");
         printf("2 - Fechar comanda\n");
         printf("3 - Nova comanda\n");
         printf("4 - Cancelar Item\n");
         printf("0 - Sair do programa\n");
-        scanf("%d", &menuComanda);
+        scanf("%d", &menu);
 
-        qntItens = 1;
-
-        switch(menuComanda){
+        switch(menu){
             case 1:
                 system("cls"); //função utilizada para limpar a tela
                 printf("Selecione o item que deseja incluir: \n");
@@ -31,402 +182,155 @@ int main(){
                 printf("3 - Acompanhamentos\n");
                 scanf("%d", &classItem);
 
-                switch(classItem){ //Aqui é feita uma classificação de itens, sendo eles espetinhos, bebidas e acompanhamentos
+                switch(classItem){
                     case 1:
-                        system("cls");
-                        printf("------------------MENU DE ESPETINHOS----------------\n");
-                        printf("1 - Espetinho de Alcatra ------------------- R$12.00\n");
-                        printf("2 - Espetinho de Fraldinha ----------------- R$11.00\n");
-                        printf("3 - Espetinho de Picanha ------------------- R$15.00\n");
-                        printf("4 - Espetinho de Patinho ------------------- R$12.00\n");
-                        printf("5 - Espetinho de Frango -------------------- R$9.00\n");
-                        printf("6 - Espetinho de Linguica ------------------ R$9.00\n");
-                        printf("7 - Espetinho Misto ------------------------ R$10.00\n");
+                        exibirCardapio(classItem);
                         scanf("%d", &espetinho);
                         printf("Qual quantidade voce deseja?\n");
-                        scanf("%d", &qntItens);
+                        scanf("%d", &quantidade);
 
-                        switch(espetinho){
-                            case 1:
-                                system("cls");
-                                printf("Espetinho de Alcatra adicionado!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+i] = 1; //o array pedidos na posição count irá armazenar o valor 1, que é a referência para Espetinho de Alcatra, e assim por diante
-                                }
-                                count -= qntItens-1;
-                                subTotal += (12.0*qntItens); //Ao sub total é incrementado o valor correspondente ao item pedido
-                            break;
-
-                            case 2:
-                                system("cls");
-                                printf("Espetinho de Fraldinha adicionado!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+1] = 2;
-                                }
-                                count -= qntItens-1;
-                                subTotal += (11.0*qntItens);
-                            break;
-
-                            case 3:
-                                system("cls");
-                                printf("Espetinho de Picanha adicionado!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+1] = 3;
-                                }
-                                count -= qntItens-1;
-                                subTotal += (15.0*qntItens);
-                            break;
-
-                            case 4:
-                                system("cls");
-                                printf("Espetinho de Patinho adicionado!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+1] = 4;
-                                }
-                                count -= qntItens-1;
-                                subTotal += (12.0*qntItens);
-                            break;
-
-                            case 5:
-                                system("cls");
-                                printf("Espetinho de Frango adicionado!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+1] = 5;
-                                }
-                                count -= qntItens-1;
-                                subTotal += (9.0*qntItens);
-                            break;
-
-                            case 6:
-                                system("cls");
-                                printf("Espetinho de Linguica adicionado!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+1] = 6;
-                                }
-                                count -= qntItens-1;
-                                subTotal += (9.0*qntItens);
-                            break;
-
-                            case 7:
-                                system("cls");
-                                printf("Espetinho Misto adicionado!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+1] = 7;
-                                }
-                                count -= qntItens-1;
-                                subTotal += (10.0*qntItens);
-                            break;
-                            default:
-                                system("cls");
-                                printf("Opcao nao identificada!\n");
-                            break;
+                        if((espetinho >= 1 && espetinho < 8) && (quantidade > 0)){
+                            system("cls");
+                            printf("Espetinho adicionado\n");
+                            for(int i = 0; i < quantidade; i++){
+                                pedidos[cont+i] = espetinho;
+                                subtotal += cardapio[classItem-1][espetinho-1];
+                            }
+                            cont = (cont + quantidade) - 1;
+                        }
+                        else {
+                            printf("Item selecionado ou quantidade invalida, tente novamente!");
+                            cont--;
                         }
                     break;
 
                     case 2:
-                        system("cls");
-                        printf("-------------------MENU DE BEBIDAS-----------------\n");
-                        printf("1 - Agua 350ml ----------------------------- R$3.00\n");
-                        printf("2 - Bare lata ------------------------------ R$5.00\n");
-                        printf("3 - Guarana Antartica lata ----------------- R$5.00\n");
-                        printf("4 - Coca-cola lata ------------------------- R$6.00\n");
-                        printf("5 - Fanta Laranja lata --------------------- R$6.00\n");
-                        printf("6 - Fanta Uva lata ------------------------- R$6.00\n");
-                        printf("7 - Brhama Duplo Malte 600ml --------------- R$10.00\n");
-                        printf("8 - Antartica 600ml ------------------------ R$10.00\n");
-                        printf("9 - Heineken 600ml ------------------------- R$12.00\n");
+                        exibirCardapio(classItem);
                         scanf("%d", &bebida);
                         printf("Qual quantidade voce deseja?\n");
-                        scanf("%d", &qntItens);
+                        scanf("%d", &quantidade);
 
-                        switch(bebida){
-                            case 1:
-                                system("cls");
-                                printf("Agua adicionada!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+i] = 8;
-                                }
-                                count -= qntItens-1;
-                                subTotal += 3;
-                            break;
-                            case 2:
-                                system("cls");
-                                printf("Bare lata adicionado!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+i] = 9;
-                                }
-                                count -= qntItens-1;
-                                subTotal += 5;
-                            break;
-                            case 3:
-                                system("cls");
-                                printf("Guarana Antartica lata adicionado!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+i] = 10;
-                                }
-                                count -= qntItens-1;
-                                subTotal += 5;
-                            break;
-                            case 4:
-                                system("cls");
-                                printf("Coca-cola lata adicionado!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+i] = 11;
-                                }
-                                count -= qntItens-1;
-                                subTotal += 6;
-                            break;
-                            case 5:
-                                system("cls");
-                                printf("Fanta Laranja lata adicionado!\n\n");
-                                for(int i = 0; i < qntItens; i++){
-                                    pedidos[count+i] = 12;
-                                }
-                                count -= qntItens-1;
-                                subTotal += 6;
-                            break;
-                            case 6:
-                                system("cls");
-                                printf("Fanta Uva lata adicionado!\n\n");
-                                pedidos[count] = 13;
-                                subTotal += 6;
-                            break;
-                            case 7:
-                                system("cls");
-                                printf("Brhama Duplo Malte 600ml adicionada!\n\n");
-                                pedidos[count] = 14;
-                                subTotal += 10;
-                            break;
-                            case 8:
-                                system("cls");
-                                printf("Antartica 600ml adicionada!\n\n");
-                                pedidos[count] = 15;
-                                subTotal += 10;
-                            break;
-                            case 9:
-                                system("cls");
-                                printf("Heineken 600ml adicionada!\n\n");
-                                pedidos[count] = 16;
-                                subTotal += 12;
-                            break;
-                            default:
-                                system("cls");
-                                printf("Opcao nao identificada!\n\n");
-                            break;
+                        if((bebida >= 1 && bebida < 10) && (quantidade > 0)){
+                            system("cls");
+                            printf("Bebida adicionada\n");
+                            for(int i = 0; i < quantidade; i++){
+                                pedidos[cont+i] = bebida + 7;
+                                subtotal += cardapio[classItem-1][bebida-1];
+                            }
+                            cont = (cont + quantidade) - 1;
+                        }
+                        else {
+                            printf("Item selecionado ou quantidade invalida, tente novamente!");
+                            cont--;
                         }
                     break;
 
                     case 3:
-                        system("cls");
-                        printf("---------------MENU DE ACOMPANHAMENTOS-------------\n");
-                        printf("1 - Arroz ---------------------------------- R$5.50\n");
-                        printf("2 - Farofa --------------------------------- R$2.00\n");
-                        printf("3 - Vinagrete ------------------------------ R$4.50\n");
-                        printf("4 - Queijo coalho -------------------------- R$6.00\n");
-                        printf("5 - Vatapa --------------------------------- R$4.50\n");
+                        exibirCardapio(classItem);
                         scanf("%d", &acompanhamento);
+                        printf("Qual quantidade voce deseja?\n");
+                        scanf("%d", &quantidade);
 
-                        switch(acompanhamento){
-                            case 1:
-                                system("cls");
-                                printf("Arroz adicionado!\n\n");
-                                pedidos[count] = 17;
-                                subTotal += 5.5;
-                            break;
-                            case 2:
-                                system("cls");
-                                printf("Farofa adicionada!\n\n");
-                                pedidos[count] = 18;
-                                subTotal += 2;
-                            break;
-                            case 3:
-                                system("cls");
-                                printf("Vinagrete adicionado!\n\n");
-                                pedidos[count] = 19;
-                                subTotal += 4.5;
-                            break;
-                            case 4:
-                                system("cls");
-                                printf("Queijo Coalho adicionado!\n\n");
-                                pedidos[count] = 20;
-                                subTotal += 6;
-                            break;
-                            case 5:
-                                system("cls");
-                                printf("Vatapa adicionado!\n\n");
-                                pedidos[count] = 21;
-                                subTotal += 4.5;
-                            break;
-                            default:
-                                system("cls");
-                                printf("Opcao nao identificada!\n\n");
-                            break;
+                        if((acompanhamento >= 1 && acompanhamento < 6) && (quantidade > 0)){
+                            system("cls");
+                            printf("Acompanhamento adicionado\n");
+                            for(int i = 0; i < quantidade; i++){
+                                pedidos[cont+i] = acompanhamento + 16;
+                                subtotal += cardapio[classItem-1][acompanhamento-1];
+                            }
+                            cont = (cont + quantidade) - 1;
+                        }
+                        else {
+                            printf("Item selecionado ou quantidade invalida, tente novamente!");
+                            cont--;
                         }
                     break;
 
                     default:
                         system("cls");
-                        printf("Opcao nao idenficada, tente novamente!\n");
-                        main();
+                        printf("Opcao nao identificada!");
+                        cont--;
+                    break;
                 }
             break;
 
             case 2:
                 system("cls");
-                while(1){ //um loop infinito é iniciado
-                    printf("Comanda fechada!\n\n");
-
-                    for(int i = 0; i < count; i++){ //este loop tem como objetivo exibir na tela tudo o que foi pedido pelo cliente
-                        switch (pedidos[i]){ //ele irá comparar o valor armazenado dentro de cada posição do array pedidos[] com a referência do item pedido pelo cliente
-                            case 1:
-                                printf("%d - Espetinho de Alcatra ------------------- R$12.00\n", i+1); //Será exibida uma lista dos itens solicitados, começando pelo índice 1
-                            break;
-
-                            case 2:
-                                printf("%d - Espetinho de Fraldinha ----------------- R$11.00\n", i+1);
-                            break;
-
-                            case 3:
-                                printf("%d - Espetinho de Picanha ------------------- R$15.00\n", i+1);
-                            break;
-
-                            case 4:
-                                printf("%d - Espetinho de Patinho ------------------- R$12.00\n", i+1);
-                            break;
-
-                            case 5:
-                                printf("%d - Espetinho de Frango -------------------- R$9.00\n", i+1);
-                            break;
-
-                            case 6:
-                                printf("%d - Espetinho de Linguica ------------------ R$9.00\n", i+1);
-                            break;
-
-                            case 7:
-                                printf("%d - Espetinho Misto ------------------------ R$10.00\n", i+1);
-                            break;
-
-                            case 8:
-                                printf("%d - Agua 350ml ----------------------------- R$3.00\n", i+1);
-                            break;
-
-                            case 9:
-                                printf("%d - Bare lata ------------------------------ R$5.00\n", i+1);
-                            break;
-
-                            case 10:
-                                printf("%d - Guarana Antartica lata ----------------- R$5.00\n", i+1);
-                            break;
-
-                            case 11:
-                                printf("%d - Coca-cola lata ------------------------- R$6.00\n", i+1);
-                            break;
-
-                            case 12:
-                                printf("%d - Fanta Laranja lata --------------------- R$6.00\n", i+1);
-                            break;
-
-                            case 13:
-                                printf("%d - Fanta Uva lata ------------------------- R$6.00\n", i+1);
-                            break;
-
-                            case 14:
-                                printf("%d - Brhama Duplo Malte 600ml --------------- R$10.00\n", i+1);
-                            break;
-
-                            case 15:
-                                printf("%d - Antartica 600ml ------------------------ R$10.00\n", i+1);
-                            break;
-
-                            case 16:
-                                printf("%d - Heineken 600ml ------------------------- R$12.00\n", i+1);
-                            break;
-
-                            case 17:
-                                printf("%d - Arroz ---------------------------------- R$5.50\n", i+1);
-                            break;
-
-                            case 18:
-                                printf("%d - Farofa --------------------------------- R$2.00\n", i+1);
-                            break;
-
-                            case 19:
-                                printf("%d - Vinagrete ------------------------------ R$4.50\n", i+1);
-                            break;
-
-                            case 20:
-                                printf("%d - Queijo coalho -------------------------- R$6.00\n", i+1);
-                            break;
-
-                            case 21:
-                                printf("%d - Vatapa --------------------------------- R$4.50\n", i+1);
-                            break;
-
-                            default:
-                            break;
-                        }
+                printf("Comanda fechada!\n");
+                while(1){
+                    for(int i = 0; i < cont; i++){
+                        printf("%d - ", i+1);
+                        exibirItem(pedidos[i]);
                     }
-
                     printf("\n-----------------------------------------------------\n");
-                    printf("Total -------------------------------------- R$%.2f\n\n", subTotal);
-                    printf("Deseja utilizar algum cupom de desconto?\n");
-                    printf("1 - Sim\n");
-                    printf("2 - Nao\n");
-                    scanf("%d", &opcaoCupom); //A informação de se o cliente deseja adicionar um cupom de desconto é recebida
+                    printf("Total -------------------------------------- R$%.2f\n\n", subtotal);
+                    printf("Deseja oferecer alguma forma de desconto?\n");
+                    printf("1 - Cupom de desconto\n");
+                    printf("2 - Desconto de um valor especifico\n");
+                    printf("3 - Sem desconto\n");
+                    scanf("%d", &opcaoDesconto);
 
-                    if(opcaoCupom == 1){
-                        printf("\nDigite o seu cupom: ");
-                        getchar(); //consome o caracter \n pendente no buffer de entrada
-                        fgets(cupom, sizeof(cupom), stdin); //a função fgets recebe três parâmetros: um array, o tamanho desse array e o método que será utilizado para entrada de dados
-                        cupom[strcspn(cupom, "\n")] = '\0'; //a posição do array que contém o caracter \n irá receber o valor \0, que indica o final de uma string
+                    switch(opcaoDesconto){
+                        case 1:
+                            printf("\nDigite o seu cupom: ");
+                            getchar(); //consome o caracter \n pendente no buffer de entrada
+                            fgets(cupom, sizeof(cupom), stdin); //a função fgets recebe três parâmetros: um array, o tamanho desse array e o método que será utilizado para entrada de dados
+                            cupom[strcspn(cupom, "\n")] = '\0';
 
-                        if(!strcmp(cupom, cupom1)){
-                            printf("\nCupom de 10 por cento adicionado!\n");
-                            total = subTotal*0.9; //O valor total é atualizado de acordo com o cupom de desconto
-                            printf("Valor corrigido: %.2f\n", total);
-                        } else if(!strcmp(cupom, cupom2)){
-                            printf("\nCupom de 20 por cento adicionado!\n");
-                            total = subTotal*0.8;
-                            printf("Valor corrigido: %.2f\n", total);
-                        } else if(!strcmp(cupom, cupom3)){
-                            printf("\nCupom de 30 por cento adicionado!\n");
-                            total = subTotal*0.7;
-                            printf("Valor corrigido: %.2f\n", total);
-                        } else {
-                            printf("\nCupom nao reconhecido!\n");
-                            count--; //Nessa condicional há uma quebra no loop, o código irá continuar normalmente após a condicional e assim irá ocorrer um incremento indesejado ao final dele, para contornar isso foi feito um decremento na variável de contador
-                            break;
-                        }
+                            if(!strcmp(cupom, cupom1)){
+                                printf("\nCupom de 10 por cento adicionado!\n");
+                                total = subtotal*0.9; //O valor total é atualizado de acordo com o cupom de desconto
+                                printf("Valor corrigido: %.2f\n", total);
+                            } else if(!strcmp(cupom, cupom2)){
+                                printf("\nCupom de 20 por cento adicionado!\n");
+                                total = subtotal*0.8;
+                                printf("Valor corrigido: %.2f\n", total);
+                            } else if(!strcmp(cupom, cupom3)){
+                                printf("\nCupom de 30 por cento adicionado!\n");
+                                total = subtotal*0.7;
+                                printf("Valor corrigido: %.2f\n", total);
+                            } else {
+                                printf("\nCupom nao reconhecido!\n");
+                            }
+                        break;
 
-                    } else if(opcaoCupom == 2){
-                        printf("\nTudo bem, sem cupom adicionado!\n");
-                        total = subTotal; //O valor total continua o mesmo pois não houve cupom de desconto
-                    } else {
-                        printf("\nOpcao nao identificada, tente novamente!\n");
-                        count--;
+                        case 2:
+                            printf("Informe o valor que deseja descontar: ");
+                            scanf("%f", &desconto);
+                            total = subtotal - desconto;
+                        break;
+
+                        case 3:
+                            printf("Sem desconto adicionado!\n");
+                        break;
+
+                        default:
+                            printf("Opcao nao identificada, sem desconto aplicado\n\n");
                         break;
                     }
 
-                    printf("\nInforme o valor do pagamento: ");
+
+                    printf("Informe o valor do pagamento: ");
                     scanf("%f", &pagamento);
 
                     if(pagamento >= total){
                         troco = pagamento - total;
-                        printf("\nO valor do troco eh de R$%.2f\n", troco);
-                        printf("Obrigado por comprar no Espetinho do IFAM, volte sempre!\n\n");
-                        count--;
+                        printf("O troco eh de: R$%.2f\n", troco);
+                        printf("Obrigado por comprar no Espetinhos do IFAM, volte sempre!\n");
                         break;
                     } else {
-                        printf("\nO valor do pagamento eh menor que o total, por favor pague corretamente!\n\n");
+                        printf("Valor abaixo do total, por favor pague corretamente!\n\n");
                     }
                 }
+
             break;
 
-            case 3: //essa opção irá zerar todas as alterações feitas, pedidos, total e o contador do loop
-                for(int i = 0; i <= count; i++){
+            case 3:
+                for(int i = 0; i < cont; i++){
                     pedidos[i] = 0;
                 }
-                count = 0;
+                cont = 0;
+                subtotal = 0;
                 total = 0;
                 system("cls");
                 printf("Tudo bem, uma nova comanda foi iniciada!\n");
@@ -434,208 +338,27 @@ int main(){
 
             case 4:
                 system("cls");
-                printf("Informe o item que deseja cancelar!\n");
+                printf("Selecione o item que deseja cancelar!\n");
 
-                for(int i = 0; i < count; i++){ //este loop tem como objetivo exibir na tela tudo o que foi pedido pelo cliente
-                    switch (pedidos[i]){ //ele irá comparar o valor armazenado dentro de cada posição do array pedidos[] com a referência do item pedido pelo cliente
-                        case 1:
-                            printf("%d - Espetinho de Alcatra ------------------- R$12.00\n", i+1); //Será exibida uma lista dos itens solicitados, começando pelo índice 1
-                        break;
-
-                        case 2:
-                            printf("%d - Espetinho de Fraldinha ----------------- R$11.00\n", i+1);
-                        break;
-
-                        case 3:
-                            printf("%d - Espetinho de Picanha ------------------- R$15.00\n", i+1);
-                        break;
-
-                        case 4:
-                            printf("%d - Espetinho de Patinho ------------------- R$12.00\n", i+1);
-                        break;
-
-                        case 5:
-                            printf("%d - Espetinho de Frango -------------------- R$9.00\n", i+1);
-                        break;
-
-                        case 6:
-                            printf("%d - Espetinho de Linguica ------------------ R$9.00\n", i+1);
-                        break;
-
-                        case 7:
-                            printf("%d - Espetinho Misto ------------------------ R$10.00\n", i+1);
-                        break;
-
-                        case 8:
-                            printf("%d - Agua 350ml ----------------------------- R$3.00\n", i+1);
-                        break;
-
-                        case 9:
-                            printf("%d - Bare lata ------------------------------ R$5.00\n", i+1);
-                        break;
-
-                        case 10:
-                            printf("%d - Guarana Antartica lata ----------------- R$5.00\n", i+1);
-                        break;
-
-                        case 11:
-                            printf("%d - Coca-cola lata ------------------------- R$6.00\n", i+1);
-                        break;
-
-                        case 12:
-                            printf("%d - Fanta Laranja lata --------------------- R$6.00\n", i+1);
-                        break;
-
-                        case 13:
-                            printf("%d - Fanta Uva lata ------------------------- R$6.00\n", i+1);
-                        break;
-
-                        case 14:
-                            printf("%d - Brhama Duplo Malte 600ml --------------- R$10.00\n", i+1);
-                        break;
-
-                        case 15:
-                            printf("%d - Antartica 600ml ------------------------ R$10.00\n", i+1);
-                        break;
-
-                        case 16:
-                            printf("%d - Heineken 600ml ------------------------- R$12.00\n", i+1);
-                        break;
-
-                        case 17:
-                            printf("%d - Arroz ---------------------------------- R$5.50\n", i+1);
-                        break;
-
-                        case 18:
-                            printf("%d - Farofa --------------------------------- R$2.00\n", i+1);
-                        break;
-
-                        case 19:
-                            printf("%d - Vinagrete ------------------------------ R$4.50\n", i+1);
-                        break;
-
-                        case 20:
-                            printf("%d - Queijo coalho -------------------------- R$6.00\n", i+1);
-                        break;
-
-                        case 21:
-                            printf("%d - Vatapa --------------------------------- R$4.50\n", i+1);
-                        break;
-
-                        default:
-                        break;
-                    }
+                for(int i = 0; i < cont; i++){
+                    printf("%d - ", i+1);
+                    exibirItem(pedidos[i]);
                 }
 
-                scanf("%d", &itemCancelado);
+                scanf("%d", &cancItem);
 
-                switch(pedidos[itemCancelado-1]){
-                    case 1:
-                        subTotal -= 12;
-                    break;
+                for(int i = 0; i<= ){
 
-                    case 2:
-                        subTotal -= 11;
-                    break;
-
-                    case 3:
-                        subTotal -= 15;
-                    break;
-
-                    case 4:
-                        subTotal -= 12;
-                    break;
-
-                    case 5:
-                        subTotal -= 9;
-                    break;
-
-                    case 6:
-                        subTotal -= 9;
-                    break;
-
-                    case 7:
-                        subTotal -= 10;
-                    break;
-
-                    case 8:
-                        subTotal -= 3;
-                    break;
-
-                    case 9:
-                        subTotal -= 5;
-                    break;
-
-                    case 10:
-                        subTotal -= 5;
-                    break;
-
-                    case 11:
-                        subTotal -= 6;
-                    break;
-
-                    case 12:
-                        subTotal -= 6;
-                    break;
-
-                    case 13:
-                        subTotal -= 6;
-                    break;
-
-                    case 14:
-                        subTotal -= 10;
-                    break;
-
-                    case 15:
-                        subTotal -= 10;
-                    break;
-
-                    case 16:
-                        subTotal -= 12;
-                    break;
-
-                    case 17:
-                        subTotal -= 5.5;
-                    break;
-
-                    case 18:
-                        subTotal -= 2;
-                    break;
-
-                    case 19:
-                        subTotal -= 4.5;
-                    break;
-
-                    case 20:
-                        subTotal -= 6;
-                    break;
-
-                    case 21:
-                        subTotal -= 4.5;
-                    break;
-
-                    default:
-                    break;
                 }
+                pedidos[cancItem-1] = 0;
 
-                pedidos[itemCancelado-1] = 0;
-                system("cls");
             break;
-
-            case 0:
-                system("cls");
-                printf("Ate a proxima!\n");
-                return 0;
-            break;
-
-            default:
-                system("cls");
-                printf("Opcao nao identificada, tente novamente!\n");
         }
-        if(menuComanda == 1 || menuComanda == 2 || menuComanda == 3){ //caso uma das opções disponíveis no menu seja selecionada, o contador será incrementado
-            count++;
+
+        if(menu == 1){
+            cont++;
         }
+        quantidade = 1;
     }
 
-    return 0;
 }
